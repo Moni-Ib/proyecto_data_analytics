@@ -6,6 +6,8 @@ import seaborn as sns
 
 st.title('Proyecto Programación')
 st.markdown('Mónica Ibarra Herrera')
+url_youtube = "https://www.youtube.com/watch?v=RircTZnd3Zg"
+st.video(url_youtube)
 
 st.header("Data set")
 df = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/src/streamlit/df_corregido.csv") 
@@ -20,6 +22,10 @@ st.dataframe(df_mexico)
 print('\n')
 
 #Visualizaciones países
+st.header('Finales mundiales')
+finales = df[df['stage']=='Final']
+st.dataframe(finales)
+
 st.header("Mundiales ganados por países")
 finales= df[df['stage']=='Final']
 ganadores_finales = finales['winning_team'].value_counts()
@@ -31,6 +37,7 @@ plt.xlabel('Países')
 plt.ylabel('# de Mundiales')
 plt.xticks(rotation=45)
 st.pyplot(fig)
+st.image('https://www.mundodeportivo.com/us/files/og_thumbnail/uploads/2022/05/05/62743e4bc0a52.jpeg')
 st.markdown("**Brasil es el país que ha ganado más mundiales, superando a los demás países con 5 victorias en total**")
 
 #Visualizaciones México
@@ -80,6 +87,7 @@ st.pyplot(fig)
 st.markdown('**México ha llegado hasta cuartos de final 2 veces**')
 
 st.subheader('Cuartos de final México')
+st.image('https://tecolotito.elsiglodedurango.com.mx/i/2018/06/705978.jpeg')
 partidos_mexico_cuartos = df[(df['stage']=='Quarterfinals') & ((df['home_team'] == 'Mexico') | (df['away_team']=='Mexico'))]
 st.dataframe(partidos_mexico_cuartos)
 st.markdown('**Los 2 cuartos de finales, han sido en México**')
