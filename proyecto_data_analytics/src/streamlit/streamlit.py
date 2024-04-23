@@ -18,7 +18,7 @@ print('\n')
 
 st.header("Partidos de México")
 df_mexico = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/notebooks/partidos_mex.csv") 
-df_mexico.columns=["year","country","city","stage","home_team","away_team","home_score","away_score","outcome","winning_team","losing_team","date", "month", "dayofweek"] 
+df_mexico.columns=["year","country","city","stage","home_team","away_team","home_score","away_score","outcome","winning_team","losing_team","date", "month", "dayofweek", 'score_mexico', 'opponent_mex'] 
 st.dataframe(df_mexico)
 print('\n')
 
@@ -108,6 +108,9 @@ X_train, X_test, y_train, y_test = train_test_split(countries_normalized, y, tes
 model.fit(X_train, y_train)
 y_train_pred = model.predict(X_train)
 y_test_pred = model.predict(X_test)
+st.subheader('Oponentes de México')
+df_oponentes = pd.read_csv('C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/notebooks/oponentes.csv')
+st.dataframe(df_oponentes)
 def predecir_goles(oponente):
     new_df = pd.DataFrame({'opponent_mex': [oponente]})
     # Codificar el nuevo dato
