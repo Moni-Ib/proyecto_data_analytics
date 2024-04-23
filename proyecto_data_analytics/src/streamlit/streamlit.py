@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-st.title('Proyecto Programación')
-st.markdown('Mónica Ibarra Herrera')
+st.title('**Proyecto Programación**')
+st.markdown('**Mónica Ibarra Herrera**')
+st.image('https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/12/07/16704111377160.jpg')
 url_youtube = "https://www.youtube.com/watch?v=RircTZnd3Zg"
 st.video(url_youtube)
 
@@ -16,7 +17,7 @@ st.dataframe(df)
 print('\n')
 
 st.header("Partidos de México")
-df_mexico = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/src/streamlit/partidos_mex.csv") 
+df_mexico = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/notebooks/partidos_mex.csv") 
 df_mexico.columns=["year","country","city","stage","home_team","away_team","home_score","away_score","outcome","winning_team","losing_team","date", "month", "dayofweek"] 
 st.dataframe(df_mexico)
 print('\n')
@@ -87,7 +88,34 @@ st.pyplot(fig)
 st.markdown('**México ha llegado hasta cuartos de final 2 veces**')
 
 st.subheader('Cuartos de final México')
-st.image('https://tecolotito.elsiglodedurango.com.mx/i/2018/06/705978.jpeg')
+st.image('https://www.sopitas.com/wp-content/uploads/2018/06/dest-mexico2026.jpg')
 partidos_mexico_cuartos = df[(df['stage']=='Quarterfinals') & ((df['home_team'] == 'Mexico') | (df['away_team']=='Mexico'))]
 st.dataframe(partidos_mexico_cuartos)
 st.markdown('**Los 2 cuartos de finales, han sido en México**')
+
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+X = df_mexico[['opponent_mex']]
+y = df_mexico[['score_mexico']]
+encoder = OneHotEncoder()
+X_encoded = encoder.fit_transform(X).toarray()
+scaler = MinMaxScaler()
+countries_normalized = scaler.fit_transform(X_encoded)
+model = LinearRegression()
+X_train, X_test, y_train, y_test = train_test_split(countries_normalized, y, test_size=0.2, random_state=42)
+model.fit(X_train, y_train)
+y_train_pred = model.predict(X_train)
+y_test_pred = model.predict(X_test)
+def predecir_goles(oponente):
+    new_df = pd.DataFrame({'opponent_mex': [oponente]})
+    # Codificar el nuevo dato
+    new_data_encoded = encoder.transform(new_df[['opponent_mex']]).toarray()
+    predicted_goals = model.predict(new_data_encoded)
+    return int(predicted_goals.item())
+st.subheader('Predicción de Goles de México')
+oponente = st.text_input('Nombre del Oponente', 'South Africa')
+if st.button('Predecir Goles'):
+    goles_predichos = predecir_goles(oponente)
+    st.write(f'Goles predichos por México contra el oponente {oponente}: {goles_predichos}')
