@@ -67,7 +67,7 @@ ax.set_title('Goles de México como Local')
 ax.set_ylabel('Goles')
 st.pyplot(fig)
 st.markdown('**México metió 4 goles cuando jugó contra el Salvador. El Salvador no ha ganado ningún partido**')
-st.markdown('**México metió 3 goles cuando jugó contra Iran. Iran ha ganado sólo 2 partidos en los 21 mundiales**')
+st.markdown('**México metió 3 goles cuando jugó contra Irán. Irán ha ganado sólo 2 partidos en los 21 mundiales**')
 
 st.subheader('**Goles de México como visitante**')
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -93,6 +93,7 @@ partidos_mexico_cuartos = df[(df['stage']=='Quarterfinals') & ((df['home_team'] 
 st.dataframe(partidos_mexico_cuartos)
 st.markdown('**Los 2 cuartos de finales, han sido en México**')
 
+st.header('Modelo de predicción')
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import MinMaxScaler
@@ -121,4 +122,4 @@ st.subheader('Predicción de Goles de México')
 oponente = st.text_input('Nombre del Oponente', 'South Africa')
 if st.button('Predecir Goles'):
     goles_predichos = predecir_goles(oponente)
-    st.write(f'Goles predichos por México contra el oponente {oponente}: {goles_predichos}')
+    st.write(f'Goles predecidor de México contra {oponente}: {goles_predichos}')
