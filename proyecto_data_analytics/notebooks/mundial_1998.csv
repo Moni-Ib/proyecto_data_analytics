@@ -1,0 +1,5 @@
+year,country,city,stage,home_team,away_team,home_score,away_score,outcome,winning_team,losing_team,date,month,dayofweek
+1998,France,Lyon,Group E,South Korea,Mexico,1,3,A,Mexico,South Korea,1998-06-13,Jun,Saturday
+1998,France,Bordeaux,Group E,Belgium,Mexico,2,2,D,,,1998-06-20,Jun,Saturday
+1998,France,Saint-Étienne,Group E,Netherlands,Mexico,2,2,D,,,1998-06-25,Jun,Thursday
+1998,France,Montpellier,Round of 16,Germany,Mexico,2,1,H,Germany,Mexico,1998-06-29,Jun,Monday

@@ -11,7 +11,7 @@ url_youtube = "https://www.youtube.com/watch?v=RircTZnd3Zg"
 st.video(url_youtube)
 
 st.header("Data set")
-df = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/src/streamlit/df_corregido.csv") 
+df = pd.read_csv("proyecto_data_analytics/src/streamlit/df_corregido.csv") 
 df.columns=["year","country","city","stage","home_team","away_team","home_score","away_score","outcome","winning_team","losing_team","date", "month", "dayofweek"] 
 st.dataframe(df)
 print('\n')
@@ -40,13 +40,21 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 st.image('https://www.mundodeportivo.com/us/files/og_thumbnail/uploads/2022/05/05/62743e4bc0a52.jpeg')
 st.markdown("**Brasil es el país que ha ganado más mundiales, superando a los demás países con 5 victorias en total**")
-
+st.markdown('Brasil ha jugado 109 partidos en los mundiales, de los cuales ha ganado 76')
 #Visualizaciones México
 
 st.header("Visualizaciones de México")
+st.image('https://cdn2.mediotiempo.com/uploads/media/2018/07/02/memes-brasil-vs-mexico-adios-14.jpg')
+st.markdown('México ha jugado 57 partidos en los mundiales, de los cuales sólo ha ganado 16')
+ganados=df[df['winning_team']=='Mexico']
+st.dataframe(ganados)
+st.markdown('México ha ganado el 28.07 % de sus partidos')
+mexico_home_goles = df_mexico[df_mexico['home_team'] == 'Mexico'].groupby('year')['home_score'].sum()
+mexico_away_goles = df_mexico[df_mexico['away_team'] == 'Mexico'].groupby('year')['away_score'].sum()
+mexico_total_goles = mexico_home_goles.add(mexico_away_goles, fill_value=0)
 goles = df_mexico.groupby('year')[['home_score', 'away_score']].sum().sum(axis=1)
 fig, ax = plt.subplots(figsize=(10, 5))
-sns.barplot(x=goles.index, y=goles.values, palette="viridis", ax=ax)
+sns.barplot(x=mexico_total_goles.index, y=mexico_total_goles.values, palette="viridis", ax=ax)
 plt.title('Goles de México en los mundiales')
 plt.xlabel('Año')
 plt.ylabel('# de Goles')
@@ -59,10 +67,14 @@ total_goles_mex = mexico_goals_home.sum() + mexico_goals_away.sum()
 promedio_goles_mexico = total_goles_mex / len(df_mexico)
 
 st.markdown("Promedio de goles metidos por México: {:.2f}".format(promedio_goles_mexico))
+st.markdown('México ha metido más goles en el mundial de 1998 el cual fue en Francia')
+mundial_1998 = df[(df['year'] == 1998) & ((df['home_team'] == 'Mexico') | (df['away_team'] == 'Mexico'))]
+st.dataframe(mundial_1998)
 
 st.subheader('**Goles de México como local**')
+mexico_local = df_mexico[df_mexico['home_team'] == 'Mexico']['home_score']
 fig, ax = plt.subplots(figsize=(8, 6))
-ax.boxplot(mexico_goals_home)
+ax.boxplot(mexico_local)
 ax.set_title('Goles de México como Local')
 ax.set_ylabel('Goles')
 st.pyplot(fig)
@@ -92,8 +104,10 @@ st.image('https://www.sopitas.com/wp-content/uploads/2018/06/dest-mexico2026.jpg
 partidos_mexico_cuartos = df[(df['stage']=='Quarterfinals') & ((df['home_team'] == 'Mexico') | (df['away_team']=='Mexico'))]
 st.dataframe(partidos_mexico_cuartos)
 st.markdown('**Los 2 cuartos de finales, han sido en México**')
+st.image('https://www.planamayor.com.mx/wp-content/uploads/2016/06/meme_selmex_planamayor4.jpe')
 
-st.header('Modelo de predicción')
+
+st.header('Modelo de predicción Regresión Lineal')
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import MinMaxScaler
@@ -123,3 +137,4 @@ oponente = st.text_input('Nombre del Oponente', 'South Africa')
 if st.button('Predecir Goles'):
     goles_predichos = predecir_goles(oponente)
     st.write(f'Goles predecidor de México contra {oponente}: {goles_predichos}')
+st.image('https://www.elgrafico.com/export/sites/prensagrafica/img/2018/06/06/meme6.jpg_1081867746.jpg')
