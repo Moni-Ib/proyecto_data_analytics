@@ -11,8 +11,7 @@ url_youtube = "https://www.youtube.com/watch?v=RircTZnd3Zg"
 st.video(url_youtube)
 
 st.header("Data set")
-df = pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/notebooks/df_corregido.csv") 
-df.columns=["year","country","city","stage","home_team","away_team","home_score","away_score","outcome","winning_team","losing_team","date", "month", "dayofweek"] 
+df=pd.read_csv("C:/Users/cesar/apps/proyecto_data_analytics/proyecto_data_analytics/notebooks/df_corregido.csv") 
 st.dataframe(df)
 print('\n')
 
