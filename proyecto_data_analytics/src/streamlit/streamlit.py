@@ -11,7 +11,7 @@ url_youtube = "https://www.youtube.com/watch?v=RircTZnd3Zg"
 st.video(url_youtube)
 
 st.header("Data set")
-df = pd.read_csv("proyecto_data_analytics/src/streamlit/df_corregido.csv")
+df = pd.read_csv("df_corregido.csv")
 st.dataframe(df)
 print('\n')
 
