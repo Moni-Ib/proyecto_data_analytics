@@ -18,7 +18,7 @@ Al hacer observaciones sobre cuál país ha ganado más mundiales, se pudo perca
 
 Después de la limpieza de datos, se enucentra el EDA (Análisis Exploratorio de Datos) en donde se pueden encontrar diferentes insights interesantes así como gráficas para que sea más visual y entendible la información.
 
-Por último se encuentra el apartado del modelo de predicción, en este caso se trabajó con Regresión Lineal, que pertenece al aprendizaje supervisado, para poder predecir los goles de México según su contrincante.
+Por último se encuentra el apartado del modelo de predicción, en este caso se trabajó con Regresión Lineal, que pertenece al aprendizaje supervisado, para poder predecir los goles de México según su contrincante, además un ejemplo donde se puede visualizar cuántos goles puede meter México dependiendo de su rival.
 
 
 A short description of the project.
